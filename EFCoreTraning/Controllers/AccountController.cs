@@ -50,10 +50,10 @@ namespace EFCoreTraning.Controllers
 
         }
 
-        public IActionResult Register()
-        {
-            return View();
-        }
+        //public IActionResult Register()
+        //{
+        //    return View();
+        //}
 
 
         [HttpPost]
