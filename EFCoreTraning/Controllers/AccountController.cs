@@ -1,5 +1,6 @@
 ﻿using EFCoreTraning.Models;
 using EFCoreTraning.ViewModels;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -31,6 +32,7 @@ namespace EFCoreTraning.Controllers
                     
                     if( null != user )
                     {
+                        HttpContext.Session.SetInt32( "USER_LOGIN_KEY", user.UserNo );
                         return RedirectToAction( "LoginSuccess", "Home" );
                     }
                 }
@@ -41,7 +43,12 @@ namespace EFCoreTraning.Controllers
             return View( model );
         }
 
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Remove( "USER_LOGIN_KEY" );
+            return RedirectToAction( "Index", "Home" );
 
+        }
 
         public IActionResult Register()
         {

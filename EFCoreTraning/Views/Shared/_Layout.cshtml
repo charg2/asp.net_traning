@@ -3,7 +3,8 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - EFCoreTraning</title>
+    <title>@ViewData[ "Title" ] - EFCoreTraning</title>
+    @using Microsoft.AspNetCore.Http;
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
@@ -28,12 +29,15 @@
 
 
                     <ul class="navbar-nav navbar-right flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">로그인</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Register">회원가입</a>
-                        </li>
+                        @if ( Context.Session.GetInt32( "USER_LOGIN_KEY" ) == null )
+                        {
+                            <li> <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">로그인</a> </li>
+                            <li> <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Register">회원가입</a> </li>
+                        }
+                        else
+                        {
+                            <li> <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Logout">로그아웃</a> </li>
+                        }
                     </ul>
 
 
