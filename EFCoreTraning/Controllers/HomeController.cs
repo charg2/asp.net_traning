@@ -18,6 +18,12 @@ namespace EFCoreTraning.Controllers
             _logger = logger;
         }
 
+        [HttpGet]
+        public IActionResult LoginSuccess()
+        {
+            return View();
+        }
+
         public IActionResult Index()
         {
             return View();

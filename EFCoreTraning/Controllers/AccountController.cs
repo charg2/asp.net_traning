@@ -1,4 +1,5 @@
 ﻿using EFCoreTraning.Models;
+using EFCoreTraning.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -15,6 +16,31 @@ namespace EFCoreTraning.Controllers
         {
             return View();
         }
+
+        [HttpPost]
+        public IActionResult Login( LoginViewModel model )
+        {
+            if ( ModelState.IsValid )
+            {
+                using ( var db = new EFCoreDbContext() )
+                {
+                    // Linq 메서드 체이닝
+                    var user = db.Users.FirstOrDefault( 
+                        u => u.UserId.Equals( model.UserId ) && 
+                             u.UserPassword.Equals( model.UserPassword ) );
+                    
+                    if( null != user )
+                    {
+                        return RedirectToAction( "LoginSuccess", "Home" );
+                    }
+                }
+
+                ModelState.AddModelError( string.Empty, "사용자 ID 혹은 비밀번호가 올바르지 않습니다." );
+            }
+
+            return View( model );
+        }
+
 
 
         public IActionResult Register()
