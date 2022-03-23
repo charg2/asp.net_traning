@@ -1,4 +1,12 @@
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using MVCTraning.Data;
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddDbContext<MvcMovieContext>( options =>
+     options.UseMySql( @"Server=127.0.0.1; Database=moives; User=root; Pwd=zx0925^^",
+                         MySqlServerVersion.Parse( "8.0.22-mysql" ) ) );
+     //builder.Configuration.GetConnectionString( "MvcMovieContext" ) ); ; ;/ ;//);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
